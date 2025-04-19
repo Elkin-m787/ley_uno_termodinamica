@@ -33,6 +33,114 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
+ .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .svg-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+        }
+        
+        .description {
+            margin-top: 30px;
+            text-align: left;
+            padding: 0 15px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+ {
+            background-color: #f5f7fa;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        
+        .integrantes-lista {
+            list-style: none;
+        }
+        
+        .integrante-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .integrante-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4299e1;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        .integrante-header:hover {
+            background-color: #3182ce;
+        }
+        
+        .integrante-nombre {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .integrante-icono {
+            transition: transform 0.3s ease;
+        }
+        
+        .activo .integrante-icono {
+            transform: rotate(180deg);
+        }
+        
+        .integrante-contenido {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .activo .integrante-contenido {
+            max-height: 200px;
+        }
+        
+        .integrante-detalles {
+            padding: 15px 20px;
+            color: #4a5568;
+        }
+        
+        .integrante-rol {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #3182ce;
+        }
+        
+        /* Colores diferentes para cada integrante */
+        .integrante-item:nth-child(1) .integrante-header { background-color: #3182ce; }
+
            {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -1036,6 +1144,312 @@
                     </ul>
                 </div>
             </div>
+             <div class="svg-container">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Gradientes radiales para un efecto más dramático -->
+            <radialGradient id="bg-gradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+              <stop offset="0%" style="stop-color:#1e3c72;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#0c1330;stop-opacity:1" />
+            </radialGradient>
+            
+            <radialGradient id="center-glow" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+              <stop offset="0%" style="stop-color:#ff4e50;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#f9d423;stop-opacity:1" />
+            </radialGradient>
+            
+            <radialGradient id="sun-gradient" cx="50%" cy="50%" r="70%" fx="45%" fy="45%">
+              <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#ffcc00;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ff6a00;stop-opacity:1" />
+            </radialGradient>
+            
+            <linearGradient id="conservation-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00C9FF;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#92FE9D;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="transform-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FA8BFF;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#2BD2FF;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="science-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FBDA61;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#FF5ACD;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Filtros para efectos visuales -->
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="10" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            
+            <filter id="shadow-strong" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0008" />
+            </filter>
+            
+            <!-- Filtro para efecto 3D -->
+            <filter id="bevel" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+              <feSpecularLighting in="blur" surfaceScale="6" specularConstant=".75" 
+                                  specularExponent="20" lighting-color="#white" result="specular">
+                <fePointLight x="100" y="100" z="200" />
+              </feSpecularLighting>
+              <feComposite in="specular" in2="SourceGraphic" operator="in" result="specular" />
+              <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" 
+                           k1="0" k2="1" k3="1" k4="0" />
+            </filter>
+          </defs>
+          
+          <!-- Fondo espacial con estrellas -->
+          <rect width="800" height="600" fill="url(#bg-gradient)" />
+          
+          <!-- Estrellas decorativas en el fondo -->
+          <g id="stars">
+            <circle cx="100" cy="100" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="200" cy="50" r="2" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.9;0.2" dur="4s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="300" cy="150" r="1" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.4;0.7;0.4" dur="5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="700" cy="100" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="600" cy="200" r="2" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="150" cy="500" r="1.8" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.7;0.2" dur="4.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="650" cy="450" r="1.2" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.7s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="50" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="100" cy="350" r="1.3" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" repeatCount="indefinite" />
+            </circle>
+          </g>
+          
+          <!-- Nebulosa decorativa -->
+          <ellipse cx="150" cy="450" rx="100" ry="70" fill="#5000ff20" filter="url(#glow)" />
+          <ellipse cx="650" cy="150" rx="120" ry="80" fill="#00ffff20" filter="url(#glow)" />
+          
+          <!-- Sol central representando la energia -->
+          <g id="energy-center">
+            <circle cx="400" cy="300" r="110" fill="url(#sun-gradient)" filter="url(#glow)" />
+            <circle cx="400" cy="300" r="100" fill="url(#center-glow)">
+              <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" />
+            </circle>
+            
+            <!-- Rayos solares -->
+            <g id="sun-rays">
+              <path d="M400,185 L400,155" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M400,415 L400,445" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M515,300 L545,300" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M255,300 L285,300" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              
+              <path d="M478,378 L508,408" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M292,222 L322,192" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M478,222 L508,192" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M292,378 L322,408" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+            </g>
+            
+            <!-- Título principal -->
+            <text x="400" y="270" font-family="Arial" font-size="30" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Primera Ley de la
+            </text>
+            <text x="400" y="310" font-family="Arial" font-size="30" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Termodinámica
+            </text>
+            <text x="400" y="345" font-family="Arial" font-size="16" fill="white" text-anchor="middle" filter="url(#glow)" font-style="italic">
+              ΔU = Q - W
+            </text>
+          </g>
+          
+          <!-- Órbitas con efecto gráfico de energía -->
+          <ellipse cx="400" cy="300" rx="260" ry="220" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" />
+          <ellipse cx="400" cy="300" rx="260" ry="220" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,15">
+            <animateTransform attributeName="transform" type="rotate" from="0 400 300" to="360 400 300" dur="60s" repeatCount="indefinite" />
+          </ellipse>
+          
+          <!-- Orbita interna -->
+          <ellipse cx="400" cy="300" rx="200" ry="170" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" />
+          <ellipse cx="400" cy="300" rx="200" ry="170" stroke="#ff00ff" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="8,12">
+            <animateTransform attributeName="transform" type="rotate" from="360 400 300" to="0 400 300" dur="45s" repeatCount="indefinite" />
+          </ellipse>
+          
+          <!-- Principio de Conservación (Norte) -->
+          <g id="conservacion" filter="url(#shadow-strong)">
+            <path d="M400,80 L435,95 L435,135 L400,150 L365,135 L365,95 Z" fill="url(#conservation-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado -->
+            <circle cx="400" cy="115" r="18" fill="none" stroke="white" stroke-width="2.5">
+              <animate attributeName="r" values="15;18;15" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="115" r="10" fill="white">
+              <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <text x="400" y="55" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Principio de Conservación
+            </text>
+            <text x="400" cy="55" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              La energía no se crea
+            </text>
+            <text x="400" cy="75" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              ni se destruye
+            </text>
+          </g>
+          
+          <!-- Transformación Energética (Izquierda) -->
+          <g id="transformacion" filter="url(#shadow-strong)">
+            <path d="M170,300 L190,270 L230,270 L250,300 L230,330 L190,330 Z" fill="url(#transform-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado de transformación -->
+            <path d="M210,300 C195,285 235,285 220,300" stroke="white" stroke-width="2.5" fill="none">
+              <animate attributeName="d" values="M210,300 C195,285 235,285 220,300;M210,300 C195,315 235,315 220,300;M210,300 C195,285 235,285 220,300" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M195,300 L210,300 L203,310 Z" fill="white" />
+            <path d="M235,300 L220,300 L227,310 Z" fill="white" />
+            
+            <text x="210" y="240" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Transformación Energética
+            </text>
+            <text x="210" y="350" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              La energía solo
+            </text>
+            <text x="210" y="370" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              cambia de forma
+            </text>
+          </g>
+          
+          <!-- Importancia en la Ciencia (Derecha) -->
+          <g id="ciencia" filter="url(#shadow-strong)">
+            <path d="M550,300 L570,270 L610,270 L630,300 L610,330 L570,330 Z" fill="url(#science-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado de átomo -->
+            <ellipse cx="590" cy="300" rx="20" ry="10" stroke="white" stroke-width="1.5" fill="none">
+              <animateTransform attributeName="transform" type="rotate" from="0 590 300" to="360 590 300" dur="4s" repeatCount="indefinite" />
+            </ellipse>
+            <ellipse cx="590" cy="300" rx="10" ry="20" stroke="white" stroke-width="1.5" fill="none">
+              <animateTransform attributeName="transform" type="rotate" from="90 590 300" to="450 590 300" dur="4s" repeatCount="indefinite" />
+            </ellipse>
+            <circle cx="590" cy="300" r="5" fill="white" />
+            
+            <text x="590" y="240" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Importancia en la Ciencia
+            </text>
+            <text x="590" y="350" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              Base de numerosas
+            </text>
+            <text x="590" y="370" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              aplicaciones científicas
+            </text>
+          </g>
+          
+          <g id="aplicaciones1" filter="url(#shadow-strong)" opacity="0.95">
+            <path d="M400,520 L435,505 L435,465 L400,450 L365,465 L365,505 Z" fill="#9D50BB" filter="url(#bevel)" />
+            <linearGradient id="aplicaciones1-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#9D50BB;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#6E48AA;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Icono animado de engranaje -->
+            <path d="M400,485 L405,470 L415,475 L410,460 L425,455 L415,445 L425,435 L410,430 L415,415 L400,420 L385,415 L390,430 L375,435 L385,445 L375,455 L390,460 L385,475 L400,470 Z" 
+                  stroke="white" stroke-width="1" fill="none" opacity="0.9">
+              <animateTransform attributeName="transform" type="rotate" from="0 400 485" to="360 400 485" dur="10s" repeatCount="indefinite" />
+            </path>
+            <circle cx="400" cy="485" r="8" fill="white" />
+            
+            <text x="400" y="545" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Aplicaciones
+            </text>
+            <text x="400" y="425" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              Máquinas térmicas y
+            </text>
+            <text x="400" y="445" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              procesos naturales
+            </text>
+          </g>
+          
+          <!-- Líneas de conexión energética animadas -->
+          <!-- Norte -->
+          <path d="M400,150 L400,190" stroke="url(#conservation-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M400,190 L400,190" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Este -->
+          <path d="M515,300 L550,300" stroke="url(#science-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M550,300 L550,300" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Oeste -->
+          <path d="M250,300 L285,300" stroke="url(#transform-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M250,300 L250,300" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Sur -->
+          <path d="M400,410 L400,450" stroke="#9D50BB" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M400,410 L400,410" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Partículas de energía flotando en las órbitas -->
+          <circle cx="400" cy="180" r="4" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A260,220 0 1,1 0,-0.1" dur="15s" repeatCount="indefinite" />
+            <animate attributeName="r" values="3;4;3" dur="3s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="180" r="3" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A260,220 0 1,0 0,-0.1" dur="18s" repeatCount="indefinite" />
+            <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="200" r="3" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A200,170 0 1,1 0,-0.1" dur="12s" repeatCount="indefinite" />
+            <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="200" r="2" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A200,170 0 1,0 0,-0.1" dur="10s" repeatCount="indefinite" />
+            <animate attributeName="r" values="1;2;1" dur="2s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+    </div>
+</div>
+</div>
         </div>
     </section>
     <section id="historia">
@@ -1204,10 +1618,6 @@
             </div>
         </div>
     </div>
-</section>
-
-</section>
-
 </section>
 
     </section>
@@ -1539,56 +1949,105 @@
         });
     </script>
  <section id="recursos" class="bg-light">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>Recursos Adicionales</h2>
-                <p>Profundiza tu conocimiento con estos recursos seleccionados sobre termodinámica</p>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h2>Recursos Adicionales</h2>
+            <p>Profundiza tu conocimiento con estos recursos seleccionados sobre termodinámica</p>
+        </div>
+        
+        <div class="grid-4 fade-in">
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Libros Recomendados</h3>
+                    <ul>
+                        <li>Termodinámica - Yunus A. Çengel</li>
+                        <li>Fundamentos de Termodinámica Técnica - Michael J. Moran</li>
+                        <li>Una Breve Historia de la Termodinámica - C. Truesdell</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="grid-3 fade-in">
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div class="resource-content">
-                        <h3>Libros Recomendados</h3>
-                        <ul>
-                            <li>Termodinámica - Yunus A. Çengel</li>
-                            <li>Fundamentos de Termodinámica Técnica - Michael J. Moran</li>
-                            <li>Una Breve Historia de la Termodinámica - C. Truesdell</li>
-                        </ul>
-                    </div>
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-laptop"></i>
                 </div>
-                
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <div class="resource-content">
-                        <h3>Recursos Online</h3>
-                        <ul>
-                            <li>MIT OpenCourseWare: Termodinámica</li>
-                            <li>Khan Academy: Termodinámica</li>
-                            <li>PhET Interactive Simulations: Energía y Trabajo</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="resource-content">
-                        <h3>Experimentos Prácticos</h3>
-                        <ul>
-                            <li>Medición del equivalente mecánico del calor</li>
-                            <li>Análisis de ciclos termodinámicos simples</li>
-                            <li>Experimentos con calorimetría</li>
-                        </ul>
-                    </div>
+                <div class="resource-content">
+                    <h3>Recursos Online</h3>
+                    <ul>
+                        <li>MIT OpenCourseWare: Termodinámica</li>
+                        <li>Khan Academy: Termodinámica</li>
+                        <li>PhET Interactive Simulations: Energía y Trabajo</li>
+                    </ul>
                 </div>
             </div>
+            
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Experimentos Prácticos</h3>
+                    <ul>
+                        <li>Medición del equivalente mecánico del calor</li>
+                        <li>Análisis de ciclos termodinámicos simples</li>
+                        <li>Experimentos con calorimetría</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Video Explicativo</h3>
+                    <div class="video-container">
+                        <iframe width="100%" height="200" src="asd.mp4" title="Video explicativo de termodinámica" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-description">Introducción visual a los principios fundamentales de la termodinámica</p>
+                </div>
+            </div>
+    <div class="resource-icon">
+        <i class="fas fa-users"></i>
+    </div>
+    <div class="resource-content">
+
+          <div class="container">
+        <h1>Integrantes del Equipo</h1>
+        
+        <ul class="integrantes-lista">
+            <li class="integrante-item">
+                <div class="integrante-header">
+                    <span class="integrante-nombre">Integrantes</span>
+                    <span class="integrante-icono">▼</span>
+                </div>
+                <div class="integrante-contenido">
+                    <div class="integrante-detalles">
+                    <p>Elkin Medina.</p>
+                     <p>Anyelo Rodríguez.</p>
+                     <p>Sainner Solano.</p>
+                     <p>Danilo Miranda.</p>
+
+                    </div>
+                </div>
+            </li>
+
         </div>
+ <script>
+        // Manejar el clic en los encabezados para expandir/contraer
+        document.querySelectorAll('.integrante-header').forEach(header => {
+            header.addEventListener('click', () => {
+                // Toggle la clase activo en el elemento padre (integrante-item)
+                header.parentElement.classList.toggle('activo');
+            });
+        });
+    </script>
+
+    </div>
+</section>
     </section>
 
     <script>
