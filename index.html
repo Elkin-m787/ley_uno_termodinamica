@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1452,7 +1451,7 @@
 </div>
         </div>
     </section>
- <section id="historia">
+    <section id="historia">
        <div class="container">
             <div class="section-header fade-in">
                 <h2>Historia y Desarrollo</h2>
@@ -1512,7 +1511,6 @@
             </div>
         </div>
     </section>
-  
     <section id="formula">
         <div class="container">
             <div class="section-header fade-in">
@@ -1742,6 +1740,2162 @@
         </div>
     </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+            const resetQuizBtn = document.getElementById('resetQuizBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const scoreElement = document.getElementById('score');
+            const feedbackElement = document.getElementById('feedback');
+            const explanations = document.querySelectorAll('.quiz-explanation');
+            
+            // Seleccionar opciones
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Deseleccionar otras opciones en la misma pregunta
+                    const parentQuestion = this.closest('.quiz-question');
+                    const options = parentQuestion.querySelectorAll('.quiz-option');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Seleccionar la opción actual
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Verificar respuestas
+            checkAnswersBtn.addEventListener('click', function() {
+                let correctAnswers = 0;
+                let totalAnswered = 0;
+                let totalQuestions = document.querySelectorAll('.quiz-question').length;
+                
+                // Revisar cada pregunta
+                document.querySelectorAll('.quiz-question').forEach((question, index) => {
+                    const selectedOption = question.querySelector('.quiz-option.selected');
+                    const explanationElement = document.getElementById(`explanation${index + 1}`);
+                    
+                    // Mostrar la explicación
+                    if (explanationElement) {
+                        explanationElement.style.display = 'block';
+                    }
+                    
+                    // Si se seleccionó una respuesta
+                    if (selectedOption) {
+                        totalAnswered++;
+                        const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                        
+                        // Marcar como correcta o incorrecta
+                        if (isCorrect) {
+                            selectedOption.classList.add('correct');
+                            correctAnswers++;
+                        } else {
+                            selectedOption.classList.add('incorrect');
+                            // Resaltar la respuesta correcta
+                            question.querySelectorAll('.quiz-option').forEach(opt => {
+                                if (opt.getAttribute('data-correct') === 'true') {
+                                    opt.classList.add('correct');
+                                }
+                            });
+                        }
+                    } else {
+                        // Si no se seleccionó ninguna respuesta, mostrar la correcta
+                        question.querySelectorAll('.quiz-option').forEach(opt => {
+                            if (opt.getAttribute('data-correct') === 'true') {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+                });
+                
+                // Mostrar resultado
+                scoreElement.textContent = correctAnswers;
+                resultContainer.style.display = 'block';
+                
+                // Proporcionar retroalimentación personalizada
+                if (correctAnswers === totalQuestions) {
+                    feedbackElement.textContent = '¡Excelente! Has comprendido perfectamente la Primera Ley de la Termodinámica.';
+                } else if (correctAnswers >= totalQuestions / 2) {
+                    feedbackElement.textContent = 'Buen trabajo. Estás en el camino correcto. Revisa las explicaciones para reforzar tus conocimientos.';
+                } else {
+                    feedbackElement.textContent = 'Sigue estudiando los conceptos básicos. Revisa las explicaciones y vuelve a intentarlo.';
+                }
+                
+                // Deshabilitar selección después de verificar
+                quizOptions.forEach(option => {
+                    option.style.pointerEvents = 'none';
+                });
+                
+                // Cambiar el botón de verificar
+                checkAnswersBtn.disabled = true;
+                checkAnswersBtn.style.opacity = '0.5';
+            });
+            
+            // Reiniciar quiz
+            resetQuizBtn.addEventListener('click', function() {
+                // Limpiar selecciones y clases
+                quizOptions.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                    option.style.pointerEvents = 'auto';
+                });
+                
+                // Ocultar explicaciones y resultados
+                explanations.forEach(exp => {
+                    exp.style.display = 'none';
+                });
+                resultContainer.style.display = 'none';
+                
+                // Reactivar botón de verificar
+                checkAnswersBtn.disabled = false;
+                checkAnswersBtn.style.opacity = '1';
+            });
+    const navLinks = document.querySelectorAll('#navbar .nav-links a');
+            // Obtener todas las secciones
+            const sections = document.querySelectorAll('section');
+            
+            // Función para mostrar solo la sección seleccionada
+            function showSection(sectionId) {
+                // Ocultar todas las secciones
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar solo la sección seleccionada
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    targetSection.classList.add('active');
+                }
+            }
+            
+            // Agregar evento click a cada enlace de navegación
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Obtener el ID de la sección desde el href del enlace
+                    const sectionId = this.getAttribute('href').substring(1);
+                    
+                    // Mostrar solo la sección seleccionada
+                    showSection(sectionId);
+                    
+                    // Actualizar estilos de navegación activa
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Por defecto, mostrar la sección de inicio
+            showSection('inicio');
+            
+            // Marcar como activo el enlace de introducción
+            const introLink = document.querySelector('a[href="#inicio"]');
+            if (introLink) {
+                introLink.classList.add('active');
+            }
+            
+            // Manejar el menú móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinksElement = document.getElementById('navLinks');
+            
+            if (mobileMenuBtn && navLinksElement) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinksElement.classList.toggle('show');
+                });
+            }
+            
+            // Manejar los botones del encabezado
+            document.querySelectorAll('.header-buttons .btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                    
+                    // Actualizar nav activo
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                        if (navLink.getAttribute('href') === '#' + targetId) {
+                            navLink.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Agregar funcionalidad a la calculadora
+            const calculateBtn = document.getElementById('calculateBtn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    const heat = parseFloat(document.getElementById('heat').value) || 0;
+                    const work = parseFloat(document.getElementById('work').value) || 0;
+                    const result = heat - work;
+                    
+                    document.getElementById('resultValue').textContent = result + ' J';
+                    
+                    let interpretation = '';
+                    if (result > 0) {
+                        interpretation = 'La energía interna del sistema aumenta.';
+                    } else if (result < 0) {
+                        interpretation = 'La energía interna del sistema disminuye.';
+                    } else {
+                        interpretation = 'La energía interna del sistema permanece constante.';
+                    }
+                    
+                    document.getElementById('interpretation').textContent = interpretation;
+                });
+            }
+        });
+    </script>
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera Ley de la Termodinámica: Un Viaje por la Conservación de la Energía</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #57c5b6;
+            --accent-color: #ff6b6b;
+            --dark-color: #159895;
+            --light-color: #dafffb;
+            --gradient-bg: linear-gradient(135deg, #1a5f7a 0%, #57c5b6 100%);
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+ .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .svg-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+        }
+        
+        .description {
+            margin-top: 30px;
+            text-align: left;
+            padding: 0 15px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+ {
+            background-color: #f5f7fa;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        
+        .integrantes-lista {
+            list-style: none;
+        }
+        
+        .integrante-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .integrante-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4299e1;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        .integrante-header:hover {
+            background-color: #3182ce;
+        }
+        
+        .integrante-nombre {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .integrante-icono {
+            transition: transform 0.3s ease;
+        }
+        
+        .activo .integrante-icono {
+            transform: rotate(180deg);
+        }
+        
+        .integrante-contenido {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .activo .integrante-contenido {
+            max-height: 200px;
+        }
+        
+        .integrante-detalles {
+            padding: 15px 20px;
+            color: #4a5568;
+        }
+        
+        .integrante-rol {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #3182ce;
+        }
+        
+        /* Colores diferentes para cada integrante */
+        .integrante-item:nth-child(1) .integrante-header { background-color: #3182ce; }
+
+           {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .quiz-container {
+            margin-top: 20px;
+        }
+        .quiz-question {
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .quiz-question h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .quiz-options {
+            margin-bottom: 15px;
+        }
+        .quiz-option {
+            padding: 12px 15px;
+            margin: 8px 0;
+            background-color: #f1f1f1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .quiz-option:hover {
+            background-color: #e9e9e9;
+        }
+        .quiz-option.selected {
+            background-color: #d4e6f1;
+            border-left: 4px solid #3498db;
+        }
+        .quiz-option.correct {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .quiz-option.incorrect {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        .quiz-explanation {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+        }
+        .quiz-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+        .btn-outline:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .result-container {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            display: none;
+        }
+        .result-container h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(90deg); }
+            50% { transform: translate(0, 100px) rotate(180deg); }
+            75% { transform: translate(-50px, 50px) rotate(270deg); }
+        }
+        
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideDown 1.5s ease;
+        }
+        
+        header p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeIn 2s ease;
+        }
+        
+        .header-buttons {
+            margin-top: 30px;
+            animation: fadeIn 2.5s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+            position: relative;
+            scroll-margin-top: 80px; /* Add padding for smooth scrolling with fixed navbar */
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        /* Timeline Styles for History */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            margin-bottom: 30px;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content .date {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left::after {
+            right: -13px;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        /* Formula Styles */
+        .formula-container {
+            background-color: var(--light-color);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .formula {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            color: var(--dark-color);
+            font-weight: bold;
+            transition: transform 0.5s ease;
+        }
+        
+        .formula:hover {
+            transform: scale(1.1);
+        }
+        
+        .formula-explanation {
+            margin-top: 30px;
+            text-align: left;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .formula-explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .formula-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .formula-symbol {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+        }
+        
+        /* Application Cards */
+        .application-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .application-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .application-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .application-content {
+            padding: 25px;
+        }
+        
+        .application-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+        
+        .quiz-question h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--secondary-color);
+            background-color: rgba(87, 197, 182, 0.1);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--secondary-color);
+            background-color: rgba(87, 197, 182, 0.2);
+        }
+        
+        .quiz-option.correct {
+            border-color: #4CAF50;  
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #F44336;
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+        
+        .quiz-explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .quiz-controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Interactive Calculator */
+        .calculator {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        
+        .calculator h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .calculator-result {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .calculator-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            color: var(--dark-color);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        /* Resources Section */
+        .resource-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .resource-icon {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .resource-content {
+            padding: 25px;
+        }
+        
+        .resource-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--light-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-contact p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background-color: var(--primary-color);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item.right {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            
+            header p {
+                font-size: 1.2em;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                padding: 20px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 60px 20px 40px;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .formula {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-fire"></i>
+                <span>Termodinámica</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#introduccion">Introducción</a></li>
+                <li><a href="#historia">Historia</a></li>
+                <li><a href="#formula">Fórmula</a></li>
+                <li><a href="#aplicaciones">Aplicaciones</a></li>
+                <li><a href="#calculadora">Calculadora</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+ <!-- Header -->
+    
+    <!-- Secciones -->
+ <section id="inicio" class="active">
+
+<header id="header">
+        <div class="hero-particles">
+            <!-- JavaScript generará las partículas -->
+        </div>
+        <h1>Primera Ley de la Termodinámica</h1>
+        <p>"La energía no se crea ni se destruye, solo se transforma en sus diferentes manifestaciones."</p>
+        <div class="header-buttons">
+            <a href="#calculadora" class="btn">Calculadora Interactiva</a>
+            <a href="#quiz" class="btn btn-outline">Pon a Prueba tus Conocimientos</a>
+        </div>
+    </header>
+</section>
+    <section id="introduccion">
+             <div class="container">
+            <div class="section-header fade-in">
+                <h2>¿Qué es la Primera Ley de la Termodinámica?</h2>
+                <p>Un principio fundamental que describe cómo la energía se conserva y transforma en sistemas físicos.</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card fade-in">
+                    <h3>El Principio de Conservación</h3>
+                    <p>La Primera Ley de la Termodinámica es una manifestación del principio de conservación de la energía aplicado a sistemas termodinámicos. Establece que la energía total de un sistema aislado permanece constante; no puede ser creada ni destruida, solo puede cambiar de forma.</p>
+                    <p>Cuando la energía desaparece en una forma, debe aparecer simultáneamente en otras formas, manteniendo siempre un balance energético perfecto en el universo.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>Importancia en la Ciencia</h3>
+                    <p>Esta ley fundamental es la base de numerosas disciplinas científicas y aplicaciones tecnológicas:</p>
+                    <ul>
+                        <li>Define los límites de lo que es posible en procesos de conversión energética</li>
+                        <li>Permite analizar la eficiencia de máquinas y sistemas energéticos</li>
+                        <li>Proporciona un marco para entender procesos naturales como el flujo de calor</li>
+                        <li>Es esencial para comprender el balance energético planetario</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="svg-container">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Gradientes radiales para un efecto más dramático -->
+            <radialGradient id="bg-gradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+              <stop offset="0%" style="stop-color:#1e3c72;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#0c1330;stop-opacity:1" />
+            </radialGradient>
+            
+            <radialGradient id="center-glow" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+              <stop offset="0%" style="stop-color:#ff4e50;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#f9d423;stop-opacity:1" />
+            </radialGradient>
+            
+            <radialGradient id="sun-gradient" cx="50%" cy="50%" r="70%" fx="45%" fy="45%">
+              <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#ffcc00;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ff6a00;stop-opacity:1" />
+            </radialGradient>
+            
+            <linearGradient id="conservation-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00C9FF;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#92FE9D;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="transform-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FA8BFF;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#2BD2FF;stop-opacity:1" />
+            </linearGradient>
+            
+            <linearGradient id="science-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FBDA61;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#FF5ACD;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Filtros para efectos visuales -->
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="10" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            
+            <filter id="shadow-strong" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0008" />
+            </filter>
+            
+            <!-- Filtro para efecto 3D -->
+            <filter id="bevel" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+              <feSpecularLighting in="blur" surfaceScale="6" specularConstant=".75" 
+                                  specularExponent="20" lighting-color="#white" result="specular">
+                <fePointLight x="100" y="100" z="200" />
+              </feSpecularLighting>
+              <feComposite in="specular" in2="SourceGraphic" operator="in" result="specular" />
+              <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" 
+                           k1="0" k2="1" k3="1" k4="0" />
+            </filter>
+          </defs>
+          
+          <!-- Fondo espacial con estrellas -->
+          <rect width="800" height="600" fill="url(#bg-gradient)" />
+          
+          <!-- Estrellas decorativas en el fondo -->
+          <g id="stars">
+            <circle cx="100" cy="100" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="200" cy="50" r="2" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.9;0.2" dur="4s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="300" cy="150" r="1" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.4;0.7;0.4" dur="5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="700" cy="100" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="600" cy="200" r="2" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="150" cy="500" r="1.8" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.7;0.2" dur="4.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="650" cy="450" r="1.2" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.7s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="50" r="1.5" fill="white" opacity="0.7">
+              <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="100" cy="350" r="1.3" fill="white" opacity="0.5">
+              <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" repeatCount="indefinite" />
+            </circle>
+          </g>
+          
+          <!-- Nebulosa decorativa -->
+          <ellipse cx="150" cy="450" rx="100" ry="70" fill="#5000ff20" filter="url(#glow)" />
+          <ellipse cx="650" cy="150" rx="120" ry="80" fill="#00ffff20" filter="url(#glow)" />
+          
+          <!-- Sol central representando la energia -->
+          <g id="energy-center">
+            <circle cx="400" cy="300" r="110" fill="url(#sun-gradient)" filter="url(#glow)" />
+            <circle cx="400" cy="300" r="100" fill="url(#center-glow)">
+              <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" />
+            </circle>
+            
+            <!-- Rayos solares -->
+            <g id="sun-rays">
+              <path d="M400,185 L400,155" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M400,415 L400,445" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M515,300 L545,300" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M255,300 L285,300" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              
+              <path d="M478,378 L508,408" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M292,222 L322,192" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M478,222 L508,192" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M292,378 L322,408" stroke="#ffffaa" stroke-width="3" opacity="0.7">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+              </path>
+            </g>
+            
+            <!-- Título principal -->
+            <text x="400" y="270" font-family="Arial" font-size="30" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Primera Ley de la
+            </text>
+            <text x="400" y="310" font-family="Arial" font-size="30" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Termodinámica
+            </text>
+            <text x="400" y="345" font-family="Arial" font-size="16" fill="white" text-anchor="middle" filter="url(#glow)" font-style="italic">
+              ΔU = Q - W
+            </text>
+          </g>
+          
+          <!-- Órbitas con efecto gráfico de energía -->
+          <ellipse cx="400" cy="300" rx="260" ry="220" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" />
+          <ellipse cx="400" cy="300" rx="260" ry="220" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,15">
+            <animateTransform attributeName="transform" type="rotate" from="0 400 300" to="360 400 300" dur="60s" repeatCount="indefinite" />
+          </ellipse>
+          
+          <!-- Orbita interna -->
+          <ellipse cx="400" cy="300" rx="200" ry="170" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" />
+          <ellipse cx="400" cy="300" rx="200" ry="170" stroke="#ff00ff" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="8,12">
+            <animateTransform attributeName="transform" type="rotate" from="360 400 300" to="0 400 300" dur="45s" repeatCount="indefinite" />
+          </ellipse>
+          
+          <!-- Principio de Conservación (Norte) -->
+          <g id="conservacion" filter="url(#shadow-strong)">
+            <path d="M400,80 L435,95 L435,135 L400,150 L365,135 L365,95 Z" fill="url(#conservation-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado -->
+            <circle cx="400" cy="115" r="18" fill="none" stroke="white" stroke-width="2.5">
+              <animate attributeName="r" values="15;18;15" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="115" r="10" fill="white">
+              <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <text x="400" y="55" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Principio de Conservación
+            </text>
+            <text x="400" cy="55" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              La energía no se crea
+            </text>
+            <text x="400" cy="75" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              ni se destruye
+            </text>
+          </g>
+          
+          <!-- Transformación Energética (Izquierda) -->
+          <g id="transformacion" filter="url(#shadow-strong)">
+            <path d="M170,300 L190,270 L230,270 L250,300 L230,330 L190,330 Z" fill="url(#transform-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado de transformación -->
+            <path d="M210,300 C195,285 235,285 220,300" stroke="white" stroke-width="2.5" fill="none">
+              <animate attributeName="d" values="M210,300 C195,285 235,285 220,300;M210,300 C195,315 235,315 220,300;M210,300 C195,285 235,285 220,300" dur="3s" repeatCount="indefinite" />
+            </path>
+            <path d="M195,300 L210,300 L203,310 Z" fill="white" />
+            <path d="M235,300 L220,300 L227,310 Z" fill="white" />
+            
+            <text x="210" y="240" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Transformación Energética
+            </text>
+            <text x="210" y="350" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              La energía solo
+            </text>
+            <text x="210" y="370" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              cambia de forma
+            </text>
+          </g>
+          
+          <!-- Importancia en la Ciencia (Derecha) -->
+          <g id="ciencia" filter="url(#shadow-strong)">
+            <path d="M550,300 L570,270 L610,270 L630,300 L610,330 L570,330 Z" fill="url(#science-gradient)" filter="url(#bevel)" />
+            
+            <!-- Icono animado de átomo -->
+            <ellipse cx="590" cy="300" rx="20" ry="10" stroke="white" stroke-width="1.5" fill="none">
+              <animateTransform attributeName="transform" type="rotate" from="0 590 300" to="360 590 300" dur="4s" repeatCount="indefinite" />
+            </ellipse>
+            <ellipse cx="590" cy="300" rx="10" ry="20" stroke="white" stroke-width="1.5" fill="none">
+              <animateTransform attributeName="transform" type="rotate" from="90 590 300" to="450 590 300" dur="4s" repeatCount="indefinite" />
+            </ellipse>
+            <circle cx="590" cy="300" r="5" fill="white" />
+            
+            <text x="590" y="240" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Importancia en la Ciencia
+            </text>
+            <text x="590" y="350" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              Base de numerosas
+            </text>
+            <text x="590" y="370" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              aplicaciones científicas
+            </text>
+          </g>
+          
+          <g id="aplicaciones1" filter="url(#shadow-strong)" opacity="0.95">
+            <path d="M400,520 L435,505 L435,465 L400,450 L365,465 L365,505 Z" fill="#9D50BB" filter="url(#bevel)" />
+            <linearGradient id="aplicaciones1-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#9D50BB;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#6E48AA;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Icono animado de engranaje -->
+            <path d="M400,485 L405,470 L415,475 L410,460 L425,455 L415,445 L425,435 L410,430 L415,415 L400,420 L385,415 L390,430 L375,435 L385,445 L375,455 L390,460 L385,475 L400,470 Z" 
+                  stroke="white" stroke-width="1" fill="none" opacity="0.9">
+              <animateTransform attributeName="transform" type="rotate" from="0 400 485" to="360 400 485" dur="10s" repeatCount="indefinite" />
+            </path>
+            <circle cx="400" cy="485" r="8" fill="white" />
+            
+            <text x="400" y="545" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold" filter="url(#glow)">
+              Aplicaciones
+            </text>
+            <text x="400" y="425" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              Máquinas térmicas y
+            </text>
+            <text x="400" y="445" font-family="Arial" font-size="14" fill="white" text-anchor="middle" opacity="0.9">
+              procesos naturales
+            </text>
+          </g>
+          
+          <!-- Líneas de conexión energética animadas -->
+          <!-- Norte -->
+          <path d="M400,150 L400,190" stroke="url(#conservation-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M400,190 L400,190" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Este -->
+          <path d="M515,300 L550,300" stroke="url(#science-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M550,300 L550,300" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Oeste -->
+          <path d="M250,300 L285,300" stroke="url(#transform-gradient)" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M250,300 L250,300" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Sur -->
+          <path d="M400,410 L400,450" stroke="#9D50BB" stroke-width="5" opacity="0.7">
+            <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          </path>
+          <path d="M400,410 L400,410" stroke="#ffffff" stroke-width="12" opacity="0.7" filter="url(#glow)" stroke-linecap="round">
+            <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite" />
+          </path>
+          
+          <!-- Partículas de energía flotando en las órbitas -->
+          <circle cx="400" cy="180" r="4" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A260,220 0 1,1 0,-0.1" dur="15s" repeatCount="indefinite" />
+            <animate attributeName="r" values="3;4;3" dur="3s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="180" r="3" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A260,220 0 1,0 0,-0.1" dur="18s" repeatCount="indefinite" />
+            <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="200" r="3" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A200,170 0 1,1 0,-0.1" dur="12s" repeatCount="indefinite" />
+            <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite" />
+          </circle>
+          
+          <circle cx="400" cy="200" r="2" fill="white" filter="url(#glow)">
+            <animateMotion path="M0,0 A200,170 0 1,0 0,-0.1" dur="10s" repeatCount="indefinite" />
+            <animate attributeName="r" values="1;2;1" dur="2s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+    </div>
+</div>
+</div>
+        </div>
+    </section>
+    <section id="historia">
+       <div class="container">
+            <div class="section-header fade-in">
+                <h2>Historia y Desarrollo</h2>
+                <p>El fascinante recorrido histórico de uno de los principios más fundamentales de la física</p>
+            </div>
+            
+            <div class="timeline fade-in">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="date">1840-1850</span>
+                        <h3>Los Primeros Pasos</h3>
+                        <p>Julius Robert Mayer, James Prescott Joule y Hermann von Helmholtz desarrollaron independientemente versiones del principio de conservación de la energía, estableciendo las bases para la Primera Ley.</p>
+                        <p>En 1843, Joule realizó su famoso experimento que demostraba la equivalencia entre trabajo mecánico y calor, un paso crucial para la formulación de la ley.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="date">1850</span>
+                        <h3>Formulación de Clausius</h3>
+                        <p>Rudolf Clausius proporcionó una de las primeras formulaciones matemáticas claras de la Primera Ley de la Termodinámica, estableciendo la relación entre calor, trabajo y energía interna en un sistema.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="date">1865</span>
+                        <h3>La Contribución de Kelvin</h3>
+                        <p>William Thomson (Lord Kelvin) reforzó la formulación de la Primera Ley y estableció conexiones importantes con la Segunda Ley de la Termodinámica, completando así los pilares básicos de la termodinámica clásica.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="date">1870-1900</span>
+                        <h3>Consolidación y Aplicación</h3>
+                        <p>Durante este período, científicos como Josiah Willard Gibbs aplicaron rigurosamente la Primera Ley a sistemas químicos y desarrollaron la termodinámica como una disciplina matemática formal. Esto amplió enormemente su aplicabilidad en diferentes campos.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="date">Siglo XX</span>
+                        <h3>Era Moderna</h3>
+                        <p>La Primera Ley se integró con la mecánica cuántica y la teoría de la relatividad, demostrando ser uno de los principios más fundamentales y universales de la física moderna.</p>
+                        <p>Sus aplicaciones se expandieron a casi todos los campos científicos, desde la biología hasta la cosmología.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="date">Actualidad</span>
+                        <h3>Relevancia Contemporánea</h3>
+                        <p>Hoy en día, la Primera Ley de la Termodinámica sigue siendo fundamental para abordar los desafíos energéticos globales, el cambio climático y el desarrollo de tecnologías sostenibles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="formula">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>La Fórmula Fundamental</h2>
+                <p>Explorando la expresión matemática de la Primera Ley y su significado físico</p>
+            </div>
+            
+            <div class="formula-container fade-in">
+                <p>La Primera Ley de la Termodinámica se expresa matemáticamente como:</p>
+                <div class="formula">
+                    ΔU = Q - W
+                </div>
+                <p>O en forma diferencial:</p>
+                <div class="formula">
+                    dU = δQ - δW
+                </div>
+                
+                <div class="formula-explanation">
+                    <h4>Componentes de la Fórmula:</h4>
+                    <div class="formula-item">
+                        <span class="formula-symbol">ΔU</span>
+                        <p>Cambio en la energía interna del sistema. Representa la variación total de energía contenida en el sistema.</p>
+                    </div>
+                    <div class="formula-item">
+                        <span class="formula-symbol">Q</span>
+                        <p>Calor transferido al sistema. Positivo cuando el sistema recibe calor, negativo cuando el sistema cede calor al entorno.</p>
+                    </div>
+                    <div class="formula-item">
+                        <span class="formula-symbol">W</span>
+                        <p>Trabajo realizado por el sistema. Positivo cuando el sistema realiza trabajo sobre el entorno, negativo cuando se realiza trabajo sobre el sistema.</p>
+                    </div>
+                    <div class="formula-item">
+                        <span class="formula-symbol">δ</span>
+                        <p>Símbolo que denota que Q y W son formas diferenciales inexactas, dependientes de la trayectoria.</p>
+                    </div>
+                    <div class="formula-item">
+                        <span class="formula-symbol">d</span>
+                        <p>Diferencial exacta, indicando que U es una función de estado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+  <section id="aplicaciones">
+    <div class="container">
+        <div class="section-header fade-in">
+            <h2>Aplicaciones Prácticas</h2>
+            <p>La Primera Ley de la Termodinámica en acción: del laboratorio al mundo real</p>
+        </div>
+        <div class="grid-3 fade-in">
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="iu.jpeg" alt="Motores y Máquinas Térmicas">
+                </div>
+                <div class="application-content">
+                    <h3>Motores y Máquinas Térmicas</h3>
+                    <p>Los motores de combustión interna, turbinas y sistemas de refrigeración funcionan siguiendo estrictamente la Primera Ley. Su diseño y optimización dependen de un análisis detallado de los flujos de energía.</p>
+                </div>
+            </div>
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="6.avif" alt="Procesos Químicos">
+                </div>
+                <div class="application-content">
+                    <h3>Procesos Químicos</h3>
+                    <p>En reacciones químicas, la Primera Ley permite calcular los cambios energéticos, predecir la viabilidad de las reacciones y diseñar procesos industriales eficientes.</p>
+                </div>
+            </div>
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="po.avif" alt="Ciencias Ambientales">
+                </div>
+                <div class="application-content">
+                    <h3>Ciencias Ambientales</h3>
+                    <p>El análisis del balance energético terrestre, los ciclos climáticos y los ecosistemas se basa en aplicaciones de la Primera Ley, contribuyendo a nuestra comprensión del cambio climático.</p>
+                </div>
+            </div>
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="kl.jpeg" alt="Biología y Medicina">
+                </div>
+                <div class="application-content">
+                    <h3>Biología y Medicina</h3>
+                    <p>Los procesos metabólicos en organismos vivos obedecen la Primera Ley. La calorimetría y otras técnicas médicas basadas en principios termodinámicos son esenciales en investigación biomédica.</p>
+                </div>
+            </div>
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="gh.jpeg" alt="Energías Renovables">
+                </div>
+                <div class="application-content">
+                    <h3>Energías Renovables</h3>
+                    <p>El diseño y optimización de sistemas de energía solar, eólica e hidroeléctrica se basa en la Primera Ley para maximizar la eficiencia en la conversión energética.</p>
+                </div>
+            </div>
+            <div class="application-card">
+                <div class="application-image">
+                    <img src="qw.jpeg" alt="Ingeniería de Materiales">
+                </div>
+                <div class="application-content">
+                    <h3>Ingeniería de Materiales</h3>
+                    <p>El desarrollo de nuevos materiales con propiedades térmicas específicas se fundamenta en principios termodinámicos, permitiendo avances en aislamiento, conducción y almacenamiento de energía.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </section>
+<section id="calculadora" class="bg-light">
+ <div class="container">
+            <div class="section-header fade-in">
+                <h2>Calculadora Termodinámica</h2>
+                <p>Experimenta con la Primera Ley calculando cambios en la energía interna, calor y trabajo</p>
+            </div>
+            
+            <div class="calculator fade-in">
+                <h3>Calcula el Cambio en la Energía Interna (ΔU)</h3>
+                
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="heat">Calor transferido (Q) en joules:</label>
+                        <input type="number" id="heat" placeholder="Ej: 1000 (positivo si entra al sistema)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="work">Trabajo realizado (W) en joules:</label>
+                        <input type="number" id="work" placeholder="Ej: 300 (positivo si sale del sistema)">
+                    </div>
+                </div>
+                
+                <button class="btn" id="calculateBtn">Calcular</button>
+                
+                <div class="calculator-result" id="calculatorResult">
+                    <h4>Cambio en la Energía Interna:</h4>
+                    <div class="result-value" id="resultValue">0 J</div>
+                    <p>Interpretación: <span id="interpretation"></span></p>
+                </div>
+            </div>
+        </div>
+  </section>
+
+      <section id="quiz">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Pon a Prueba tus Conocimientos</h2>
+                <p>Verifica tu comprensión de la Primera Ley de la Termodinámica con este quiz interactivo</p>
+            </div>
+            
+            <div class="quiz-container fade-in">
+                <div class="quiz-question" id="question1">
+                    <h3>1. La Primera Ley de la Termodinámica es una expresión de:</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="a" data-correct="false">a) La conservación de la masa</div>
+                        <div class="quiz-option" data-value="b" data-correct="true">b) La conservación de la energía</div>
+                        <div class="quiz-option" data-value="c" data-correct="false">c) La entropía del universo</div>
+                        <div class="quiz-option" data-value="d" data-correct="false">d) La tendencia al equilibrio térmico</div>
+                    </div>
+                    <div class="quiz-explanation" id="explanation1">
+                        <strong>Respuesta correcta: b)</strong>
+                        <p>La Primera Ley de la Termodinámica es una expresión del principio de conservación de la energía aplicado a sistemas termodinámicos.</p>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" id="question2">
+                    <h3>2. Si un sistema recibe 500 J de calor y realiza 300 J de trabajo, ¿cuál es el cambio en su energía interna?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="a" data-correct="true">a) 200 J</div>
+                        <div class="quiz-option" data-value="b" data-correct="false">b) -200 J</div>
+                        <div class="quiz-option" data-value="c" data-correct="false">c) 800 J</div>
+                        <div class="quiz-option" data-value="d" data-correct="false">d) -800 J</div>
+                    </div>
+                    <div class="quiz-explanation" id="explanation2">
+                        <strong>Respuesta correcta: a)</strong>
+                        <p>Según la Primera Ley, ΔU = Q - W = 500 J - 300 J = 200 J</p>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" id="question3">
+                    <h3>3. En un proceso adiabático:</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="a" data-correct="false">a) La temperatura permanece constante</div>
+                        <div class="quiz-option" data-value="b" data-correct="true">b) No hay transferencia de calor</div>
+                        <div class="quiz-option" data-value="c" data-correct="false">c) No se realiza trabajo</div>
+                        <div class="quiz-option" data-value="d" data-correct="false">d) La energía interna no cambia</div>
+                    </div>
+                    <div class="quiz-explanation" id="explanation3">
+                        <strong>Respuesta correcta: b)</strong>
+                        <p>Un proceso adiabático es aquel en el que no hay transferencia de calor (Q = 0), por lo que ΔU = -W.</p>
+                    </div>
+                </div>
+            <div class="quiz-question" id="question4">
+                <h3>4. En un proceso isocórico (volumen constante):</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="a" data-correct="false">a) No hay cambio en la energía interna</div>
+                    <div class="quiz-option" data-value="b" data-correct="false">b) El trabajo realizado por el sistema siempre es positivo</div>
+                    <div class="quiz-option" data-value="c" data-correct="true">c) El trabajo realizado por el sistema es cero</div>
+                    <div class="quiz-option" data-value="d" data-correct="false">d) La temperatura siempre permanece constante</div>
+                </div>
+                <div class="quiz-explanation" id="explanation4">
+                    <strong>Respuesta correcta: c)</strong>
+                    <p>En un proceso isocórico (volumen constante), el trabajo realizado por el sistema es cero (W = 0), ya que W = P·ΔV y ΔV = 0. Por lo tanto, según la Primera Ley, ΔU = Q.</p>
+                </div>
+            </div>
+            <div class="quiz-question" id="question5">
+                <h3>5. ¿Cuál de los siguientes científicos NO contribuyó directamente al desarrollo de la Primera Ley de la Termodinámica?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="a" data-correct="false">a) James Prescott Joule</div>
+                    <div class="quiz-option" data-value="b" data-correct="false">b) Rudolf Clausius</div>
+                    <div class="quiz-option" data-value="c" data-correct="true">c) Ludwig Boltzmann</div>
+                    <div class="quiz-option" data-value="d" data-correct="false">d) Julius Robert Mayer</div>
+                </div>
+                <div class="quiz-explanation" id="explanation5">
+                    <strong>Respuesta correcta: c)</strong>
+                    <p>Ludwig Boltzmann es conocido principalmente por sus contribuciones a la mecánica estadística y la Segunda Ley de la Termodinámica (entropía), pero no por contribuciones directas a la formulación de la Primera Ley. Joule, Clausius y Mayer fueron fundamentales en el establecimiento de la Primera Ley de la Termodinámica.</p>
+                </div>
+            </div>
+             <div class="result-container" id="resultContainer">
+                <h3>Tu puntuación: <span id="score">0</span>/5</h3>
+                <p id="feedback"></p>
+            </div>
+              <div class="quiz-controls">
+                <button class="btn" id="checkAnswersBtn">Verificar Respuestas</button>
+                <button class="btn" id="resetQuizBtn">Reiniciar</button>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+            const resetQuizBtn = document.getElementById('resetQuizBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const scoreElement = document.getElementById('score');
+            const feedbackElement = document.getElementById('feedback');
+            const explanations = document.querySelectorAll('.quiz-explanation');
+            
+            // Seleccionar opciones
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Deseleccionar otras opciones en la misma pregunta
+                    const parentQuestion = this.closest('.quiz-question');
+                    const options = parentQuestion.querySelectorAll('.quiz-option');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Seleccionar la opción actual
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Verificar respuestas
+            checkAnswersBtn.addEventListener('click', function() {
+                let correctAnswers = 0;
+                let totalAnswered = 0;
+                let totalQuestions = document.querySelectorAll('.quiz-question').length;
+                
+                // Revisar cada pregunta
+                document.querySelectorAll('.quiz-question').forEach((question, index) => {
+                    const selectedOption = question.querySelector('.quiz-option.selected');
+                    const explanationElement = document.getElementById(`explanation${index + 1}`);
+                    
+                    // Mostrar la explicación
+                    if (explanationElement) {
+                        explanationElement.style.display = 'block';
+                    }
+                    
+                    // Si se seleccionó una respuesta
+                    if (selectedOption) {
+                        totalAnswered++;
+                        const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                        
+                        // Marcar como correcta o incorrecta
+                        if (isCorrect) {
+                            selectedOption.classList.add('correct');
+                            correctAnswers++;
+                        } else {
+                            selectedOption.classList.add('incorrect');
+                            // Resaltar la respuesta correcta
+                            question.querySelectorAll('.quiz-option').forEach(opt => {
+                                if (opt.getAttribute('data-correct') === 'true') {
+                                    opt.classList.add('correct');
+                                }
+                            });
+                        }
+                    } else {
+                        // Si no se seleccionó ninguna respuesta, mostrar la correcta
+                        question.querySelectorAll('.quiz-option').forEach(opt => {
+                            if (opt.getAttribute('data-correct') === 'true') {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+                });
+                
+                // Mostrar resultado
+                scoreElement.textContent = correctAnswers;
+                resultContainer.style.display = 'block';
+                
+                // Proporcionar retroalimentación personalizada
+                if (correctAnswers === totalQuestions) {
+                    feedbackElement.textContent = '¡Excelente! Has comprendido perfectamente la Primera Ley de la Termodinámica.';
+                } else if (correctAnswers >= totalQuestions / 2) {
+                    feedbackElement.textContent = 'Buen trabajo. Estás en el camino correcto. Revisa las explicaciones para reforzar tus conocimientos.';
+                } else {
+                    feedbackElement.textContent = 'Sigue estudiando los conceptos básicos. Revisa las explicaciones y vuelve a intentarlo.';
+                }
+                
+                // Deshabilitar selección después de verificar
+                quizOptions.forEach(option => {
+                    option.style.pointerEvents = 'none';
+                });
+                
+                // Cambiar el botón de verificar
+                checkAnswersBtn.disabled = true;
+                checkAnswersBtn.style.opacity = '0.5';
+            });
+            
+            // Reiniciar quiz
+            resetQuizBtn.addEventListener('click', function() {
+                // Limpiar selecciones y clases
+                quizOptions.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                    option.style.pointerEvents = 'auto';
+                });
+                
+                // Ocultar explicaciones y resultados
+                explanations.forEach(exp => {
+                    exp.style.display = 'none';
+                });
+                resultContainer.style.display = 'none';
+                
+                // Reactivar botón de verificar
+                checkAnswersBtn.disabled = false;
+                checkAnswersBtn.style.opacity = '1';
+            });
+    const navLinks = document.querySelectorAll('#navbar .nav-links a');
+            // Obtener todas las secciones
+            const sections = document.querySelectorAll('section');
+            
+            // Función para mostrar solo la sección seleccionada
+            function showSection(sectionId) {
+                // Ocultar todas las secciones
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar solo la sección seleccionada
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    targetSection.classList.add('active');
+                }
+            }
+            
+            // Agregar evento click a cada enlace de navegación
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Obtener el ID de la sección desde el href del enlace
+                    const sectionId = this.getAttribute('href').substring(1);
+                    
+                    // Mostrar solo la sección seleccionada
+                    showSection(sectionId);
+                    
+                    // Actualizar estilos de navegación activa
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Por defecto, mostrar la sección de inicio
+            showSection('inicio');
+            
+            // Marcar como activo el enlace de introducción
+            const introLink = document.querySelector('a[href="#inicio"]');
+            if (introLink) {
+                introLink.classList.add('active');
+            }
+            
+            // Manejar el menú móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinksElement = document.getElementById('navLinks');
+            
+            if (mobileMenuBtn && navLinksElement) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinksElement.classList.toggle('show');
+                });
+            }
+            
+            // Manejar los botones del encabezado
+            document.querySelectorAll('.header-buttons .btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                    
+                    // Actualizar nav activo
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                        if (navLink.getAttribute('href') === '#' + targetId) {
+                            navLink.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Agregar funcionalidad a la calculadora
+            const calculateBtn = document.getElementById('calculateBtn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    const heat = parseFloat(document.getElementById('heat').value) || 0;
+                    const work = parseFloat(document.getElementById('work').value) || 0;
+                    const result = heat - work;
+                    
+                    document.getElementById('resultValue').textContent = result + ' J';
+                    
+                    let interpretation = '';
+                    if (result > 0) {
+                        interpretation = 'La energía interna del sistema aumenta.';
+                    } else if (result < 0) {
+                        interpretation = 'La energía interna del sistema disminuye.';
+                    } else {
+                        interpretation = 'La energía interna del sistema permanece constante.';
+                    }
+                    
+                    document.getElementById('interpretation').textContent = interpretation;
+                });
+            }
+        });
+    </script>
  <section id="recursos" class="bg-light">
     <div class="container">
         <div class="section-header fade-in">
@@ -1791,35 +3945,19 @@
                     </ul>
                 </div>
             </div>
-           <div class="resource-card">
+            
+            <div class="resource-card">
                 <div class="resource-icon">
                     <i class="fas fa-video"></i>
                 </div>
-<div class="resource-card" style="max-width: 800px; margin: auto;">
-    <div class="resource-content">
-        <h3 style="font-size: 1.2em; margin-bottom: 10px;">Video Explicativo</h3>
-        <div class="video-container" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
-            <a href="https://www.youtube.com/watch?v=EC8Ei-39_e8" target="_blank" style="display: block; position: relative;">
-                <img src="https://img.youtube.com/vi/EC8Ei-39_e8/maxresdefault.jpg" 
-                     alt="Video explicativo de termodinámica" 
-                     style="width: 100%; height: auto; display: block; object-fit: cover; max-height: 250px;">
-                
-                <!-- Botón de reproducción en el centro -->
-                <div class="play-button-overlay" 
-                     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                    <svg height="48" width="68" viewBox="0 0 68 48">
-                        <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 
-                                 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 
-                                 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,
-                                 68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
-                        <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                    </svg>
+                <div class="resource-content">
+                    <h3>Video Explicativo</h3>
+                    <div class="video-container">
+                        <iframe width="100%" height="200" src="asd.mp4" title="Video explicativo de termodinámica" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-description">Introducción visual a los principios fundamentales de la termodinámica</p>
                 </div>
-            </a>
-        </div>
-        <p class="video-description" style="margin-top: 8px;">Introducción visual a los principios fundamentales de la termodinámica</p>
-    </div>
-</div>
+            </div>
     <div class="resource-icon">
         <i class="fas fa-users"></i>
     </div>
@@ -1921,8 +4059,7 @@
             </div>
             <div class="social-icons">
                 <a href="https://www.facebook.com/PhysicsWorld" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://vt.tiktok.com/ZSrG8cVN8/" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://x.com/GuiaEstudiante1/status/1904884856162566590" rel="stylesheet"><i class="fab fa-twitter"></i>
+                <a href="https://x.com/GuiaEstudiante1/status/1904884856162566590" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://youtu.be/nGcc7C8YUbg?si=3EMROsYDOWu9zrbA" target="_blank"><i class="fab fa-youtube"></i></a>
                 <a href="https://www.instagram.com/reel/CzpHo9EOIdz/" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
