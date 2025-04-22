@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -87,7 +87,353 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        
+           #caracteristicas {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #caracteristicas:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--gradient-bg);
+    }
+    
+    .caracteristicas-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+    
+    .caracteristica-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .caracteristica-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .caracteristica-icon {
+        background: var(--gradient-bg);
+        color: white;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+    }
+    
+    .caracteristica-content {
+        padding: 25px;
+        flex: 1;
+    }
+    
+    .caracteristica-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .caracteristica-content h3:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+    
+    .caracteristica-content p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+    
+    /* Estilos para leyes de la termodinámica */
+    .caracteristica-details {
+        margin-top: 20px;
+    }
+    
+    .ley-item {
+        display: flex;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .ley-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .ley-number {
+        width: 40px;
+        height: 40px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .ley-info h4 {
+        color: var(--dark-color);
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+    
+    /* Estilos para sistemas termodinámicos */
+    .sistemas-container {
+        margin-top: 20px;
+    }
+    
+    .sistema-item {
+        display: flex;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 15px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .sistema-item:hover {
+        transform: translateX(5px);
+        background-color: #f0f0f0;
+    }
+    
+    .sistema-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .sistema-aislado {
+        background-color: #FFD700;
+        color: #000;
+    }
+    
+    .sistema-cerrado {
+        background-color: #4682B4;
+        color: white;
+    }
+    
+    .sistema-abierto {
+        background-color: #3CB371;
+        color: white;
+    }
+    
+    .sistema-info h4 {
+        color: var(--dark-color);
+        margin-bottom: 5px;
+    }
+    
+    .sistema-ejemplo {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 5px;
+    }
+    
+    /* Estilos para procesos termodinámicos */
+    .procesos-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .proceso-diagram {
+        margin-bottom: 20px;
+    }
+    
+    .procesos-svg {
+        width: 100%;
+        height: auto;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    
+    .procesos-lista {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .proceso-item {
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        border-left: 5px solid #ccc;
+        transition: transform 0.3s ease;
+    }
+    
+    .proceso-item:hover {
+        transform: translateX(5px);
+    }
+    
+    .proceso-item h4 {
+        color: var(--dark-color);
+        margin-bottom: 5px;
+        font-size: 1rem;
+    }
+    
+    /* Estilos para variables de estado */
+    .variables-container {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .variable-item {
+        display: flex;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+    
+    .variable-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .variable-symbol {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .variable-info h4 {
+        color: var(--dark-color);
+        margin-bottom: 5px;
+    }
+    
+    .variable-unidades {
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 5px;
+    }
+    
+    /* Estilos para ciclos termodinámicos */
+    .ciclos-container {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .ciclo-item {
+        display: flex;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 15px;
+        transition: transform 0.3s ease;
+    }
+    
+    .ciclo-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .ciclo-imagen {
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .ciclo-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .ciclo-icon.carnot {
+        background-color: #FFD700;
+        color: #000;
+    }
+    
+    .ciclo-icon.otto {
+        background-color: #4682B4;
+        color: white;
+    }
+    
+    .ciclo-icon.diesel {
+        background-color: #8B4513;
+        color: white;
+    }
+    
+    .ciclo-icon.rankine {
+        background-color: #3CB371;
+        color: white;
+    }
+    
+    .ciclo-info h4 {
+        color: var(--dark-color);
+        margin-bottom: 5px;
+    }
+    
+    .ciclo-eficiencia {
+        font-weight: bold;
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #e8f4f8;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    
+    /* Estilos para fenómenos irreversibles */
+    .irreversibles-container {
+        margin-top: 20px;
+    }
+    
+    .irreversible-diagrama {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .entropia-flecha {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
         .integrante-header {
             padding: 15px 20px;
             cursor: pointer;
@@ -1082,27 +1428,27 @@
 <body>
     <!-- Navigation -->
     <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-fire"></i>
-                <span>Termodinámica</span>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#introduccion">Introducción</a></li>
-                <li><a href="#historia">Historia</a></li>
-                <li><a href="#formula">Fórmula</a></li>
-                <li><a href="#aplicaciones">Aplicaciones</a></li>
-                <li><a href="#calculadora">Calculadora</a></li>
-                <li><a href="#quiz">Quiz</a></li>
-                <li><a href="#recursos">Recursos</a></li>
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
- <!-- Header -->
+    <div class="nav-container">
+        <a href="#" class="logo">
+            <i class="fas fa-fire"></i>
+            <span>Termodinámica</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#introduccion">Introducción</a></li>
+            <li><a href="#historia">Historia</a></li>
+            <li><a href="#caracteristicas">Características</a></li>
+            <li><a href="#formula">Fórmula</a></li>
+            <li><a href="#aplicaciones">Aplicaciones</a></li>
+            <li><a href="#calculadora">Calculadora</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
     
     <!-- Secciones -->
  <section id="inicio" class="active">
@@ -1510,7 +1856,211 @@
                 </div>
             </div>
         </div>
-    </section>
+   </section>
+
+<section id="caracteristicas" class="fade-in">
+      <div class="container">
+    <div class="section-header">
+        <h2>Primera Ley de la Termodinámica</h2>
+        <p>Descubre los principios fundamentales que rigen la conservación de la energía en sistemas termodinámicos</p>
+    </div>
+
+    <div class="caracteristicas-wrapper">
+        <!-- Tarjeta 1: Principio fundamental -->
+        <div class="caracteristica-card fade-in">
+            <div class="caracteristica-icon">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <div class="caracteristica-content">
+                <h3>Principio de Conservación</h3>
+                <p>La energía no puede crearse ni destruirse, solo transformarse o transferirse. Cuando un sistema experimenta un cambio, la energía se conserva.</p>
+                <div class="caracteristica-details">
+                    <div class="ley-item">
+                        <div class="ley-number">1</div>
+                        <div class="ley-info">
+                            <h4>Formulación Matemática</h4>
+                            <p>ΔU = Q - W</p>
+                            <p>Donde ΔU es el cambio en la energía interna del sistema, Q es el calor transferido al sistema, y W es el trabajo realizado por el sistema.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 2: Aplicaciones -->
+        <div class="caracteristica-card fade-in">
+            <div class="caracteristica-icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <div class="caracteristica-content">
+                <h3>Aplicaciones Prácticas</h3>
+                <p>La Primera Ley es fundamental para entender y diseñar múltiples sistemas:</p>
+                
+                <div class="sistemas-container">
+                    <div class="sistema-item">
+                        <div class="sistema-icon sistema-abierto">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="sistema-info">
+                            <h4>Máquinas Térmicas</h4>
+                            <p>Motores, refrigeradores y bombas de calor operan bajo este principio.</p>
+                            <div class="sistema-ejemplo">Ejemplo: Motores de combustión interna.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sistema-item">
+                        <div class="sistema-icon sistema-cerrado">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="sistema-info">
+                            <h4>Procesos Térmicos</h4>
+                            <p>Calentamiento, enfriamiento, cambios de fase y reacciones químicas.</p>
+                            <div class="sistema-ejemplo">Ejemplo: Calderas y sistemas de calefacción.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sistema-item">
+                        <div class="sistema-icon sistema-aislado">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="sistema-info">
+                            <h4>Generación de Energía</h4>
+                            <p>Centrales eléctricas y sistemas de generación de potencia.</p>
+                            <div class="sistema-ejemplo">Ejemplo: Centrales termoeléctricas.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 3: Implicaciones -->
+        <div class="caracteristica-card fade-in">
+            <div class="caracteristica-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="caracteristica-content">
+                <h3>Implicaciones Conceptuales</h3>
+                <p>La Primera Ley establece principios fundamentales para nuestra comprensión del universo:</p>
+                
+                <div class="procesos-lista">
+                    <div class="proceso-item" style="border-left-color: #4CAF50;">
+                        <h4>Imposibilidad del Móvil Perpetuo</h4>
+                        <p>No puede existir una máquina que produzca trabajo indefinidamente sin consumir energía.</p>
+                    </div>
+                    <div class="proceso-item" style="border-left-color: #2196F3;">
+                        <h4>Balance Energético</h4>
+                        <p>Cualquier cambio en la energía de un sistema debe contabilizarse como calor, trabajo o ambos.</p>
+                    </div>
+                    <div class="proceso-item" style="border-left-color: #FF9800;">
+                        <h4>Funciones de Estado</h4>
+                        <p>La energía interna es una función de estado, independiente del camino seguido.</p>
+                    </div>
+                    <div class="proceso-item" style="border-left-color: #9C27B0;">
+                        <h4>Conservación Universal</h4>
+                        <p>En cualquier proceso natural o artificial, la energía total del universo permanece constante.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 4: Formas de Transferencia -->
+        <div class="caracteristica-card fade-in">
+            <div class="caracteristica-icon">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="caracteristica-content">
+                <h3>Mecanismos de Transferencia</h3>
+                <p>La Primera Ley distingue dos formas principales de transferir energía:</p>
+                
+                <div class="variables-container">
+                    <div class="variable-item">
+                        <div class="variable-symbol">Q</div>
+                        <div class="variable-info">
+                            <h4>Calor</h4>
+                            <p>Transferencia de energía debido a diferencias de temperatura.</p>
+                            <div class="variable-unidades">Convenio: Positivo cuando entra al sistema</div>
+                        </div>
+                    </div>
+                    
+                    <div class="variable-item">
+                        <div class="variable-symbol">W</div>
+                        <div class="variable-info">
+                            <h4>Trabajo</h4>
+                            <p>Transferencia de energía mediante la aplicación de una fuerza a lo largo de un desplazamiento.</p>
+                            <div class="variable-unidades">Convenio: Positivo cuando sale del sistema</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 5: Casos Específicos -->
+        <div class="caracteristica-card fade-in">
+            <div class="caracteristica-icon">
+                <i class="fas fa-flask"></i>
+            </div>
+            <div class="caracteristica-content">
+                <h3>Casos Especiales</h3>
+                <p>La Primera Ley se manifiesta de manera particular en ciertos procesos:</p>
+                
+                <div class="ciclos-container">
+                    <div class="ciclo-item">
+                        <div class="ciclo-imagen">
+                            <div class="ciclo-icon carnot">
+                                <i class="fas fa-thermometer-empty"></i>
+                            </div>
+                        </div>
+                        <div class="ciclo-info">
+                            <h4>Proceso Adiabático</h4>
+                            <p>No hay transferencia de calor (Q = 0), por lo que ΔU = -W.</p>
+                            <div class="ciclo-eficiencia">El sistema cambia su energía interna únicamente mediante trabajo.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ciclo-item">
+                        <div class="ciclo-imagen">
+                            <div class="ciclo-icon otto">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="ciclo-info">
+                            <h4>Proceso Isócoro</h4>
+                            <p>No hay cambio de volumen (W = 0), por lo que ΔU = Q.</p>
+                            <div class="ciclo-eficiencia">Todo el calor transferido modifica la energía interna.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ciclo-item">
+                        <div class="ciclo-imagen">
+                            <div class="ciclo-icon diesel">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="ciclo-info">
+                            <h4>Ciclo Completo</h4>
+                            <p>La energía interna retorna a su valor inicial (ΔU = 0), por lo que Q = W.</p>
+                            <div class="ciclo-eficiencia">El calor neto absorbido iguala al trabajo neto realizado.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ciclo-item">
+                        <div class="ciclo-imagen">
+                            <div class="ciclo-icon rankine">
+                                <i class="fas fa-equals"></i>
+                            </div>
+                        </div>
+                        <div class="ciclo-info">
+                            <h4>Proceso Isotérmico</h4>
+                            <p>La temperatura se mantiene constante (ΔU = 0 para gases ideales), por lo que Q = W.</p>
+                            <div class="ciclo-eficiencia">Todo el calor absorbido se convierte en trabajo.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
     <section id="formula">
         <div class="container">
             <div class="section-header fade-in">
